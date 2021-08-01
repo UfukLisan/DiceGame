@@ -3,6 +3,7 @@ package dicegame;
 
 import javax.swing.JFrame;
 import ui.RegistrationUi;
+import business.entity.Die;
 
 public class DiceGame {
 
@@ -15,7 +16,7 @@ public class DiceGame {
     gui.setVisible(true);
     gui.setResizable(false);
     gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
+
     }
     
 }

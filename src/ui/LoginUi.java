@@ -1,6 +1,7 @@
 
 package ui;
 
+import business.entity.User;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -36,18 +37,29 @@ public class LoginUi extends JFrame{
     container.setLayout(new FlowLayout());
     
     passwordField.setEchoChar('*');
-             container.add(nameLabel);
-             container.add(nameField);
-             container.add(passwordLabel);
-             container.add(passwordField);
-             container.add(loginBtn);
+    container.add(nameLabel);
+    container.add(nameField);
+    container.add(passwordLabel);
+    container.add(passwordField);
+    container.add(loginBtn);
     
         
         loginBtn.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==loginBtn){
-            JOptionPane.showMessageDialog(null,"You logged in. Thanks :) ");         
+            JOptionPane.showMessageDialog(null,"You logged in. Thanks :) ");
+            
+            dispose();
+            
+            User ufuk = new User("ufuk","password");
+            GameUi gameUi = new GameUi(ufuk);
+            
+            gameUi.setTitle("Dice Game");
+            gameUi.setSize(500,100);
+            gameUi.setVisible(true);
+            gameUi.setResizable(false);
+            gameUi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         }
     });

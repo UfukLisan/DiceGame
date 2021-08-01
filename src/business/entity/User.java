@@ -1,10 +1,6 @@
 
-package user;
+package business.entity;
 
-/**
- *
- * @author UFUK
- */
 public class User {
     
     private String name;
@@ -37,8 +33,12 @@ public class User {
         return point;
     }
     public void setPoint(int point) {
+        if(this.point + point > 0)
         this.point = this.point + point;
-    }
+        else 
+            this.point = 0; // If the player loses the score, it cannot be lower than 0.
+    }   
+        
 
     
 }
