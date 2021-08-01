@@ -3,6 +3,8 @@ package ui;
 
 import business.entity.Die;
 import business.entity.User;
+import dataAccess.abstracts.DataAccess;
+import dataAccess.concretes.DataAccessFile;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,9 +23,12 @@ public class GameUi extends JFrame{
     private JButton rollButton;
     private Container container;
     private User user;
+    private DataAccess dataAccess;
     
     public GameUi(User user){
         this.user = user;
+        
+        dataAccess = new DataAccessFile(); //polymorphism. Maybe you don't use files. You want to use a database. 
         
         dice1Label = new JLabel("Dice 1:");
         dice2Label = new JLabel("Dice 2:");
@@ -55,7 +60,7 @@ public class GameUi extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource()==rollButton){
                     int sum;
-                   
+                                       
                     Die dice1 = new Die();
                     Die dice2 = new Die();
  
@@ -67,11 +72,13 @@ public class GameUi extends JFrame{
                     
                     if(sum == 7 ){
                         user.setPoint(5); 
-                        JOptionPane.showMessageDialog(null,"CONGRATULATIONS! YOU WON!!!\n"+"Your last point: "+user.getPoint());        
+                        dataAccess.update(user, 5);
+                        JOptionPane.showMessageDialog(null,"CONGRATULATIONS! " + user.getName() + " YOU WON!!!\n" + "Your last point: " + user.getPoint());        
                     }
                     else {
-                        user.setPoint(-3);  
-                        JOptionPane.showMessageDialog(null,"YOU Lose!\n"+"Your last point: "+user.getPoint());
+                        user.setPoint(-3); 
+                        dataAccess.update(user, -3);
+                        JOptionPane.showMessageDialog(null,"YOU Lose!\n"+ user.getName() + " Your last point: "+user.getPoint());
                     }
                 }
             }

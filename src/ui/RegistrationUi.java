@@ -1,6 +1,10 @@
 
 package ui;
 
+import business.entity.User;
+import business.services.RegistrationService;
+import dataAccess.abstracts.DataAccess;
+import dataAccess.concretes.DataAccessFile;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -49,9 +53,10 @@ public class RegistrationUi extends JFrame{
     container.add(orLoginButton);
     
     signUpBtn.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e){
          if(e.getSource()==signUpBtn){
-            JOptionPane.showMessageDialog(null,"You signed up. Thanks :) ");
+             RegistrationService service = new RegistrationService();
+             service.registration(nameField.getText(), passwordField.getText());
             }  
         }
     });

@@ -17,6 +17,12 @@ public class User {
         this.password=password;
         this.point=0;
     }
+     public User(String name,String password,int point){
+        this.name=name;
+        this.password=password;
+        this.point=point;
+    }
+     
     public String getName() {
         return name;
     }
@@ -38,7 +44,9 @@ public class User {
         else 
             this.point = 0; // If the player loses the score, it cannot be lower than 0.
     }   
-        
+    public void setDefaultPoint(int point){
+        this.point = point;
+    }
 
     
 }

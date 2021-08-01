@@ -2,6 +2,9 @@
 package ui;
 
 import business.entity.User;
+import business.services.LoginService;
+import dataAccess.abstracts.DataAccess;
+import dataAccess.concretes.DataAccessFile;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -48,18 +51,9 @@ public class LoginUi extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==loginBtn){
-            JOptionPane.showMessageDialog(null,"You logged in. Thanks :) ");
-            
-            dispose();
-            
-            User ufuk = new User("ufuk","password");
-            GameUi gameUi = new GameUi(ufuk);
-            
-            gameUi.setTitle("Dice Game");
-            gameUi.setSize(500,100);
-            gameUi.setVisible(true);
-            gameUi.setResizable(false);
-            gameUi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+             LoginService service = new LoginService();
+             service.login(nameField.getText(), passwordField.getText());
+             dispose();
             }
         }
     });
