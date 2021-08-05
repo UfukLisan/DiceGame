@@ -1,10 +1,11 @@
 
 package ui;
+/*
+LoginUi.java                       Author: Ufuk Lisan  ID: 21795394
 
-import business.entity.User;
+It is LoginUi class. It's purpose is creating the login gui.  
+*/
 import business.services.LoginService;
-import dataAccess.abstracts.DataAccess;
-import dataAccess.concretes.DataAccessFile;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,7 +14,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -52,7 +52,7 @@ public class LoginUi extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==loginBtn){
              LoginService service = new LoginService();
-             service.login(nameField.getText(), passwordField.getText());
+             service.login(nameField.getText(), new String(passwordField.getPassword()));
              dispose();
             }
         }

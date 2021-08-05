@@ -1,9 +1,13 @@
 
 package dicegame;
+/*
+DiceGame.java                       Author: Ufuk Lisan  ID: 21795394
+
+It is main class. Program starts here.
+*/
 
 import javax.swing.JFrame;
 import ui.RegistrationUi;
-import business.entity.Die;
 
 public class DiceGame {
 

@@ -1,6 +1,10 @@
 
 package ui;
+/*
+GameUi.java                       Author: Ufuk Lisan  ID: 21795394
 
+It is GameUi class. It's purpose is creating the game gui.  
+*/
 import business.entity.Die;
 import business.entity.User;
 import dataAccess.abstracts.DataAccess;
@@ -28,7 +32,8 @@ public class GameUi extends JFrame{
     public GameUi(User user){
         this.user = user;
         
-        dataAccess = new DataAccessFile(); //polymorphism. Maybe you don't use files. You want to use a database. 
+        //polymorphism. Maybe you don't use files. You want to use a database. 
+        dataAccess = new DataAccessFile();
         
         dice1Label = new JLabel("Dice 1:");
         dice2Label = new JLabel("Dice 2:");
@@ -69,11 +74,11 @@ public class GameUi extends JFrame{
                     dice1ResultField.setText(""+dice1.getDice());
                     dice2ResultField.setText(""+dice2.getDice());
                     sumResultField.setText(""+sum);
-                    
                     if(sum == 7 ){
                         user.setPoint(5); 
                         dataAccess.update(user, 5);
-                        JOptionPane.showMessageDialog(null,"CONGRATULATIONS! " + user.getName() + " YOU WON!!!\n" + "Your last point: " + user.getPoint());        
+                        JOptionPane.showMessageDialog(null,"CONGRATULATIONS! " + user.getName() + " YOU WON!!!\n" + "Your last point: " + user.getPoint());
+                        
                     }
                     else {
                         user.setPoint(-3); 

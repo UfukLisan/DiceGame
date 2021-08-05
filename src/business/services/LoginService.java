@@ -1,14 +1,16 @@
 
 package business.services;
+/*
+LoginService.java                       Author: Ufuk Lisan  ID: 21795394
 
+It is LoginService class. It's purpose is login service.  
+*/
 import business.entity.User;
 import dataAccess.abstracts.DataAccess;
 import dataAccess.concretes.DataAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ui.GameUi;
-import ui.LoginUi;
-
 
 public class LoginService{
     
@@ -16,9 +18,9 @@ public class LoginService{
         User tempUser = new User();
         User user = new User(name,password);
         DataAccess dataAccess = new DataAccessFile();
-        tempUser = dataAccess.read(user);
+        int a = dataAccess.read(user);
            
-            if(tempUser.getName()!= null){
+            if(a > 0){
                JOptionPane.showMessageDialog(null,"You logged in. Thanks :) ");
   
                GameUi gameUi = new GameUi(tempUser);

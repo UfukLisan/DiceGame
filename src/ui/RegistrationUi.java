@@ -1,10 +1,11 @@
 
 package ui;
+/*
+RegistrationUi.java                       Author: Ufuk Lisan  ID: 21795394
 
-import business.entity.User;
+It is RegistrationUi class. It's purpose is creating the registration gui.  
+*/
 import business.services.RegistrationService;
-import dataAccess.abstracts.DataAccess;
-import dataAccess.concretes.DataAccessFile;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,7 +14,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -56,7 +56,7 @@ public class RegistrationUi extends JFrame{
         public void actionPerformed(ActionEvent e){
          if(e.getSource()==signUpBtn){
              RegistrationService service = new RegistrationService();
-             service.registration(nameField.getText(), passwordField.getText());
+             service.registration(nameField.getText(),new String(new String(passwordField.getPassword())));
             }  
         }
     });

@@ -1,6 +1,10 @@
 
 package business.entity;
+/*
+User.java                       Author: Ufuk Lisan  ID: 21795394
 
+It is user class. User will be an object. 
+*/
 public class User {
     
     private String name;

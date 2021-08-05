@@ -1,7 +1,10 @@
 
 package business.entity;
+/*
+Die.java                       Author: Ufuk Lisan  ID: 21795394
 
-
+It is die class. Die will be an object. 
+*/
 public class Die {
     
     private int dice;

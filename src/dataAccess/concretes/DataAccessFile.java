@@ -1,92 +1,110 @@
-
 package dataAccess.concretes;
+/*
+DataAccessFile.java                       Author: Ufuk Lisan  ID: 21795394
 
-import dataAccess.abstracts.DataAccess;
+It is DataAccessFile class. It's purpose is doing file operations.  
+*/
 import business.entity.User;
+import dataAccess.abstracts.DataAccess;
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class DataAccessFile implements DataAccess{
-  
-    private File file;
-    private String filePath;
-    
-    public DataAccessFile(){
-    this.filePath = "C:\\Users\\UFUK LİSAN\\Desktop\\DiceGame\\player.txt";
-    file = new File (this.filePath);
-    
-    
-    if(!file.exists()){  
-        try {
-         file.createNewFile();
-        } catch (IOException ioe) {
-         JOptionPane.showMessageDialog(null,"File not create. "+ioe.getMessage());
-        } catch (Exception e){
-         JOptionPane.showMessageDialog(null,"File not create. "+e.getMessage());            
-        }
-       }
-       
-    }
-    
+    private String userNameInput ;
+    private String passwordInput ;
+
     @Override
     public void write(User user) {
-       
-        try {
-        FileWriter fWriter = new FileWriter(file);
-        BufferedWriter bWriter = new BufferedWriter(fWriter);
-        
-        bWriter.write(user.getName()+user.getPassword()+user.getPoint());
-        
-        bWriter.close();
-        } catch (IOException ioe) {
-         JOptionPane.showMessageDialog(null,"Can not write. "+ioe.getMessage());   
-        }catch (Exception e){
-         JOptionPane.showMessageDialog(null,"Can not write. "+e.getMessage());            
-        }
-        
+       if(!user.getName().isEmpty() && !(user.getPassword().isEmpty())) {
+                    try(FileWriter fWriter = new FileWriter("player.txt", true);
+                            BufferedWriter bWriter = new BufferedWriter(fWriter);
+                            PrintWriter out = new PrintWriter(bWriter))
+                        {
+                        String passwordInput = new String(user.getPassword());
+                            out.println(user.getName()+"_"+passwordInput+"_"+user.getPoint());
+                        } catch (IOException e1) {
+                        }
+                }
     }
 
     @Override
-    public void update(User user,int point) {
-        User tempUser;
-       
-        tempUser=read(user);
-        tempUser.setPoint(point);
-        
-        user.setDefaultPoint(tempUser.getPoint());
+    public void update(User user, int point) {
+      
+                 File inputFile = new File("player.txt");
+                 boolean name,password;
+                 
+                  userNameInput = user.getName();
+                  passwordInput = new String(user.getPassword());
+                 
+                 try {
+                        Scanner in = new Scanner(inputFile);
+                        while (in.hasNextLine())
+                        {
+                          String s = in.nextLine();
+                          String[] sArray = s.split("_");
+                          name=userNameInput.equals(sArray[0]);
+                          password=passwordInput.equals(sArray[1]);
+                          
+                          if(password==true && name==true) {
+                              user.setPoint(point);
+                              write(user);
+                          }
+                        }
+                 }catch (FileNotFoundException e1) {
+                        JOptionPane.showMessageDialog(null,"User Database Not Found", "Error",JOptionPane.ERROR_MESSAGE);
+                    }
     }
 
     @Override
-    public User read(User user) {
-        
-        String line,myUserLine;
-        User tempUser = new User();
-        
-        myUserLine = user.getName()+" "+user.getPassword()+" "+user.getPoint();
-        try {
-        FileReader fReader = new FileReader(file);
-        BufferedReader bReader = new BufferedReader(fReader);
-        
-        while((line=bReader.readLine())!= null){
-            if(line.equals(myUserLine)){
-            tempUser.setName(user.getName());
-            tempUser.setPassword(user.getPassword());
-            tempUser.setPoint(user.getPoint());
-            }
-        }
-        bReader.close();
-        } catch (IOException ioe) {
-         JOptionPane.showMessageDialog(null,"Can not write. "+ioe.getMessage());   
-        }catch (Exception e){
-         JOptionPane.showMessageDialog(null,"Can not write. "+e.getMessage());            
-        }
-        return tempUser;
-    }
+    public int read(User user) {
+     File inputFile = new File("player.txt");
+                 boolean name,password,temp;
+                 int a=0;
+                 
+                  userNameInput = user.getName();
+                  passwordInput = new String(user.getPassword());
+                 
+                  
+                 try {
+                        Scanner in = new Scanner(inputFile);
+                        while (in.hasNextLine())
+                        {
+                          String s = in.nextLine();
+                          String[] sArray = s.split("_");
+                          name=userNameInput.equals(sArray[0]);
+                          password=passwordInput.equals(sArray[1]);
+                          
+                          if(password==true&&name==true) {
+                              temp=true;
+                          }
+                          else
+                              temp=false;
+                          if (temp==true)
+                          {
+                            JOptionPane.showMessageDialog(null,"Login Successful", "Success",JOptionPane.INFORMATION_MESSAGE);
+                            a++;
+                            break;
+                          }
+                        }
+                        if(a==0) {
+                                JOptionPane.showMessageDialog(null,"Invalid Username / Password Combo", "Error",JOptionPane.ERROR_MESSAGE);
 
+                        }
+                        in.close();
+                       
+
+                    } catch (FileNotFoundException e1) {
+                        JOptionPane.showMessageDialog(null,"User Database Not Found", "Error",JOptionPane.ERROR_MESSAGE);
+                    }
+                 return a;
+    }
+    
+    
+    
 }
